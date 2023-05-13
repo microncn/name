@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Tab } from "@headlessui/react";
+import va from "@vercel/analytics";
 
 interface Data {
   country: [Country];
@@ -26,8 +27,8 @@ export default function Home() {
 
   async function getData(event: any) {
     event.preventDefault();
+    va.track("name", { name });
 
-    const response = await fetch(`https://api.nationalize.io?name=${name}`);
     const [nationalityResponse, genderResponse] = await Promise.all([
       fetch(`https://api.nationalize.io?name=${name}`),
       fetch(`https://api.genderize.io?name=${name}`),
