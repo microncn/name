@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Tab } from "@headlessui/react";
 import va from "@vercel/analytics";
+import { log } from "next-axiom";
 
 interface Data {
   country: [Country];
@@ -25,8 +26,10 @@ export default function Home() {
 
   const regions = new Intl.DisplayNames(["en"], { type: "region" });
 
+  log.info("home");
   async function getData(event: any) {
     event.preventDefault();
+    log.info("test", { name });
     va.track("name", { name });
 
     const [nationalityResponse, genderResponse] = await Promise.all([
