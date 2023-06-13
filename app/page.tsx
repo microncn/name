@@ -29,6 +29,7 @@ export default function Home() {
   log.info("home");
   async function getData(event: any) {
     event.preventDefault();
+    console.log(event);
     log.info("test", { name });
     va.track("name", { name });
 
@@ -48,7 +49,7 @@ export default function Home() {
         <form onSubmit={getData} className="mb-4">
           <input
             type="text"
-            className="border border-neutral-800 text-sm text-white px-2 py-1.5 rounded-md outline-none bg-transparent focus:bg-neutral-900 duration-200 placeholder:text-neutral-400 w-full"
+            className="border border-neutral-800 text-sm hover:border-neutral-600 focus:border-neutral-400 text-white p-2 rounded-md outline-none bg-transparent duration-200 placeholder:text-neutral-400 w-full"
             placeholder="Enter your name"
             onChange={({ target }) => setName(target.value)}
           />
@@ -78,23 +79,23 @@ export default function Home() {
             <Tab.Panel className="gap-2 flex flex-col">
               {data?.country &&
                 data.country.map((foo, index) => (
-                  <div className="border border-neutral-800 px-2 py-1.5 rounded-md justify-between flex">
-                    <span className="text-sm text-white font-semibold">
-                      {`${index + 1}. ${regions.of(foo.country_id)}`}
-                    </span>
-                    <span className="text-sm text-emerald-500">
+                  <div className="bg-neutral-900 p-2.5 rounded-md justify-between items-center flex">
+                    <div>
+                      <span className="text-sm text-neutral-400">{index + 1}. </span>
+                      <span className="text-sm text-white font-medium">
+                        {regions.of(foo.country_id)}
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-emerald-500">
                       {`${Math.round(foo.probability * 100)}%`}
                     </span>
                   </div>
                 ))}
             </Tab.Panel>
             <Tab.Panel>
-              <div className="border border-neutral-800 px-2 py-1.5 rounded-md flex flex-col text-center">
-                <span className="text-xl text-white font-semibold">
-                  {data?.gender.gender.toUpperCase()}
-                </span>
-                <span className="text-lg text-emerald-500 font-semibold">
-                  {`${Math.round((data?.gender.probability ?? 0) * 100)}%`}
+              <div className="bg-neutral-900 p-4 rounded-md flex flex-col text-center">
+                <span className="text-xl text-white medium">
+                  Your name is <span className='font-semibold bg-blue-500/20 text-blue-500 px-1'>{`${Math.round((data?.gender.probability ?? 0) * 100)}%`}</span> {data?.gender.gender}
                 </span>
               </div>
             </Tab.Panel>
